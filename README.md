@@ -8,6 +8,8 @@ A aplicação foi feita utilizando `Docker Compose`, então para inicializar bas
 
 Quando a aplicação terminar de levantar, você já estará anexado a linha de comando do serviço `backend`, podendo assim executar os testes através do comando `yarn test`.
 
+Tomei a liberdade de criar uma interface simples de frontend para testar a aplicação de forma mais realista mais facilmente. O frontend pode ser acessado pela URL http://localhost:8000.
+
 ## Detalhes de organização e funcionamento
 
 Todo a aplicação foi criada de acordo com as exigências do [Teste](https://github.com/jeff-silva/test-seidor/blob/main/backend-ttp-teste-tecnico-pratico.pdf).
