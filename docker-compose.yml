@@ -8,9 +8,6 @@ services:
     volumes:
       - ./frontend:/app
 
-  # docker run --rm -it -v ${PWD}/express:/app -w /app node bash
-  # yarn init -y
-  # yarn add nodemon express cors sequelize sqlite3
   backend:
     image: node:22
     working_dir: /app

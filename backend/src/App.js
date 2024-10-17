@@ -146,8 +146,6 @@ export class App {
   }
 
   async install() {
-    // await fs.unlink(this.sequelize.options.storage);
-
     const { total } = (
       await this.sequelize.query(
         `SELECT count(*) as total FROM sqlite_master WHERE type = 'table'`,
@@ -159,35 +157,11 @@ export class App {
 
     let promises = [];
 
-    // // Drop tables
-    // tables.map((item) => {
-    //   promises.push(async () => {
-    //     try {
-    //       const sql = `drop table ${item.table.name}`;
-    //       console.log({ sql });
-    //       return await this.sequelize.query(sql);
-    //     } catch (err) {}
-    //   });
-    // });
-
     // Create tables
     promises.push(async () => {
       await this.sequelize.sync({ force: true, alter: true });
       return `create tables`;
     });
-
-    // // Create tables
-    // this.modules.map((module) => {
-    //   Object.values(module.models()).map((model) => {
-    //     promises.push(async () => {
-    //       // await sequelize.query("PRAGMA foreign_keys = true;");
-    //       // return await model.sync({ force: true, alter: true });
-    //       await model.sync();
-    //       // await sequelize.query("PRAGMA foreign_keys = false;");
-    //       return `table sync: ${model.name}`;
-    //     });
-    //   });
-    // });
 
     promises.push(() => {
       return new Promise((resolve, reject) => {
@@ -212,8 +186,6 @@ export class App {
         return await promise();
       })
     );
-    console.log(results);
-    // let tables = await this.databaseSchema();
   }
 
   async test() {
@@ -241,11 +213,11 @@ export class App {
     );
   }
 
-  async init() {
+  async init(callback = async () => null) {
     await this.preInit();
     await this.install();
 
-    this.express.listen(3000, () => {
+    this.express.listen(3000, async () => {
       console.log(`App listening on port 3000`);
       console.log(``);
 
@@ -260,6 +232,8 @@ export class App {
           index++;
         }
       });
+
+      await callback(this);
     });
   }
 }

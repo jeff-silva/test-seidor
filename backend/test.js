@@ -1,8 +1,3 @@
 import { App } from "./src/App.js";
-const app = new App({
-  sequelizeConfig: {
-    dialect: "sqlite",
-    storage: "../database_test.sqlite",
-  },
-});
+const app = new App();
 app.test();
