@@ -1,14 +1,14 @@
 # Teste Técnico Seidor
 
-Antes de mais nada, obrigado pela oportunidade, será um prazer fazer parte da sua equipe!
+Antes de mais nada, obrigado pela oportunidade. Será um prazer fazer parte da sua equipe!
 
 ## Executando
 
-A aplicação foi feita utilizando `Docker Compose`, então para inicializar basta executar `yarn dev` e tudo estará pronto sem mais configurações.
+A aplicação foi feita utilizando `Docker`, então para inicializar basta executar `yarn dev` e tudo estará pronto sem mais configurações.
 
-Quando a aplicação terminar de levantar, você já estará anexado a linha de comando do serviço `backend`, podendo assim executar os testes através do comando `yarn test`.
+Quando a aplicação terminar de levantar, você já estará anexado a linha de comando do serviço `backend` no seu console, podendo assim executar os testes unitários através do comando `yarn test`.
 
-Tomei a liberdade de criar uma interface simples de frontend para testar a aplicação de forma mais realista mais facilmente. O frontend pode ser acessado pela URL http://localhost:8000.
+Tomei a liberdade de criar uma interface simples de frontend para testar a aplicação de forma mais realista com mais facilidade. O frontend pode ser acessado pela URL http://localhost:8000.
 
 ## Detalhes de organização e funcionamento
 
@@ -150,6 +150,8 @@ export default class ShopProductController extends Controller {
 Estou ciente de que não se deve criar uma aplicação assim, do zero, mas o fiz supondo que a estruturação faça parte do teste.
 
 Estou ciente também que seria mais interessante utilizar inversão de controle para fazer os testes de CRUD, mas optei por fazer da forma mais simples por uma questão de tempo.
+
+Os arquivos de configuração .env não existem apenas para tornar a aplicação "zero-configuration".
 
 Espero que eu tenha conseguido atingir as expectativas.
 
