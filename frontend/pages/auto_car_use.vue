@@ -114,11 +114,17 @@
                 item-value="id"
               />
 
-              <v-date-picker-range
-                v-model:dateStart="autoCarDialog.data.date_start"
-                v-model:dateFinal="autoCarDialog.data.date_final"
+              <v-date
+                label="Data inicial"
+                v-model="autoCarDialog.data.date_start"
+                :max="autoCarDialog.data.date_final"
               />
-              <br />
+
+              <v-date
+                label="Data final"
+                v-model="autoCarDialog.data.date_final"
+                :min="autoCarDialog.data.date_start"
+              />
 
               <v-textarea
                 label="observation"

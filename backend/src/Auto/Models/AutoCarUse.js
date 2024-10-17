@@ -44,21 +44,42 @@ AutoCarUse.init(
       validate: {
         async custom(value) {
           if (!value) throw new Error("Campo obrigatório");
+          const { Op } = Sequelizee;
 
           const date_start = dayjs(this.date_start).format("YYYY-MM-DD");
           const date_final = dayjs(this.date_final).format("YYYY-MM-DD");
 
           const exists = await AutoCarUse.findAll({
             where: {
-              id: { [Sequelizee.Op.ne]: this.id },
+              id: { [Op.ne]: this.id },
               driver_id: this.driver_id,
-              [Sequelizee.Op.or]: [
-                sequelize.literal(
-                  `'${date_start}' BETWEEN auto_car_use.date_start AND auto_car_use.date_final`
-                ),
-                sequelize.literal(
-                  `'${date_final}' BETWEEN auto_car_use.date_start AND auto_car_use.date_final`
-                ),
+              [Op.or]: [
+                {
+                  [Op.and]: [
+                    {
+                      date_final: null,
+                    },
+                    {
+                      date_start: {
+                        [Op.between]: [date_start, date_final],
+                      },
+                    },
+                  ],
+                },
+                {
+                  [Op.and]: [
+                    {
+                      date_final: {
+                        [Op.ne]: null,
+                      },
+                    },
+                    {
+                      date_start: {
+                        [Op.between]: [date_start, date_final],
+                      },
+                    },
+                  ],
+                },
               ],
             },
           });
@@ -75,23 +96,45 @@ AutoCarUse.init(
       validate: {
         async custom(value) {
           if (!value) throw new Error("Campo obrigatório");
+          const { Op } = Sequelizee;
 
           const date_start = dayjs(this.date_start).format("YYYY-MM-DD");
           const date_final = dayjs(this.date_final).format("YYYY-MM-DD");
 
           const exists = await AutoCarUse.findAll({
             where: {
-              id: { [Sequelizee.Op.ne]: this.id },
+              id: { [Op.ne]: this.id },
               car_id: this.car_id,
-              [Sequelizee.Op.or]: [
-                sequelize.literal(
-                  `'${date_start}' BETWEEN auto_car_use.date_start AND auto_car_use.date_final`
-                ),
-                sequelize.literal(
-                  `'${date_final}' BETWEEN auto_car_use.date_start AND auto_car_use.date_final`
-                ),
+              [Op.or]: [
+                {
+                  [Op.and]: [
+                    {
+                      date_final: null,
+                    },
+                    {
+                      date_start: {
+                        [Op.between]: [date_start, date_final],
+                      },
+                    },
+                  ],
+                },
+                {
+                  [Op.and]: [
+                    {
+                      date_final: {
+                        [Op.ne]: null,
+                      },
+                    },
+                    {
+                      date_start: {
+                        [Op.between]: [date_start, date_final],
+                      },
+                    },
+                  ],
+                },
               ],
             },
+            logging: console.log,
           });
 
           if (exists.length) {
@@ -112,11 +155,11 @@ AutoCarUse.init(
     date_final: {
       type: SequelizeDataTypes.DATE,
       allowNull: true,
-      validate: {
-        required(value) {
-          if (!value) throw new Error("Campo obrigatório");
-        },
-      },
+      // validate: {
+      //   required(value) {
+      //     if (!value) throw new Error("Campo obrigatório");
+      //   },
+      // },
     },
 
     observation: {
