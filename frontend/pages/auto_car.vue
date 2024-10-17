@@ -1,13 +1,45 @@
 <template>
   <nuxt-layout name="app">
     <v-container>
-      <div class="d-flex justify-end">
-        <v-btn
-          text="Criar"
-          color="primary"
-          @click="autoCarDialog.setData({}).show()"
-        />
-      </div>
+      <v-row>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-autocomplete
+            label="Cor"
+            density="compact"
+            hide-details="auto"
+            v-model="autoCarSearch.params.color"
+            @update:modelValue="autoCarSearch.submit()"
+            :items="autoCarColors"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-autocomplete
+            label="Marca"
+            density="compact"
+            hide-details="auto"
+            v-model="autoCarSearch.params.brand"
+            @update:modelValue="autoCarSearch.submit()"
+            :items="autoCarBrands"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+          align="end"
+        >
+          <v-btn
+            text="Criar"
+            color="primary"
+            @click="autoCarDialog.setData({}).show()"
+          />
+        </v-col>
+      </v-row>
       <br />
 
       <v-table class="border">
@@ -28,9 +60,7 @@
           <template v-for="o in autoCarSearch.response.rows">
             <tr>
               <td>{{ o.name }}</td>
-              <td>
-                <div :style="`height:20px; background:${o.color};`"></div>
-              </td>
+              <td>{{ o.color }}</td>
               <td>
                 <v-table-actions>
                   <v-btn
@@ -102,45 +132,18 @@
                 :error-messages="autoCarSave.errorField('plate')"
               />
 
-              <v-menu
-                :close-on-content-click="false"
-                offset="10"
-                width="200"
-              >
-                <template #activator="bind">
-                  <v-btn
-                    block
-                    :color="autoCarDialog.data.color || 'primary'"
-                    :text="autoCarDialog.data.color || 'Sem cor'"
-                    v-bind="bind.props"
-                  />
-                  <br />
-                </template>
-                <v-color-picker
-                  label="Cor"
-                  v-model="autoCarDialog.data.color"
-                  :error-messages="autoCarSave.errorField('color')"
-                />
-              </v-menu>
+              <v-autocomplete
+                label="Cor"
+                v-model="autoCarDialog.data.color"
+                :error-messages="autoCarSave.errorField('color')"
+                :items="autoCarColors"
+              />
 
               <v-autocomplete
                 label="Marca"
                 v-model="autoCarDialog.data.brand"
                 :error-messages="autoCarSave.errorField('brand')"
-                :items="[
-                  'Chevrolet',
-                  'Dodge',
-                  'Fiat',
-                  'Mitsubishi',
-                  'Bmw',
-                  'Suzuki',
-                  'Sundown',
-                  'Ducati',
-                  'Scania',
-                  'Hyundai',
-                  'Volkswagen',
-                  'Volvo',
-                ]"
+                :items="autoCarBrands"
               />
             </v-card-text>
             <v-card-actions>
@@ -212,6 +215,32 @@ const autoCarDeleteHandler = (row) => {
   autoCarDelete.url = `http://localhost:3000/api/v1/auto_car/${row.id}`;
   return autoCarDelete.submit();
 };
+
+const autoCarColors = [
+  "",
+  "Azul",
+  "Branco",
+  "Cinza",
+  "Preto",
+  "Vermelho",
+  "Verde",
+];
+
+const autoCarBrands = [
+  "",
+  "Chevrolet",
+  "Dodge",
+  "Fiat",
+  "Mitsubishi",
+  "Bmw",
+  "Suzuki",
+  "Sundown",
+  "Ducati",
+  "Scania",
+  "Hyundai",
+  "Volkswagen",
+  "Volvo",
+];
 
 onMounted(() => {
   autoCarSearch.submit();

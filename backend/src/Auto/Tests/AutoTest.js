@@ -7,7 +7,7 @@ export default class AutoTest extends Test {
         this.autoCar = await this.request({
           method: "post",
           url: "http://localhost:3000/api/v1/auto_car",
-          data: { plate: "BAR2E20", color: "#ffffff", brand: "Fiat" },
+          data: { plate: "BAR2E20", color: "Branco", brand: "Fiat" },
         });
 
         assert.strictEqual(true, this.autoCar.status == 200);

@@ -1,13 +1,33 @@
 <template>
   <nuxt-layout name="app">
     <v-container>
-      <div class="d-flex justify-end">
-        <v-btn
-          text="Criar"
-          color="primary"
-          @click="autoDriverDialog.setData({}).show()"
-        />
-      </div>
+      <v-row>
+        <v-col
+          cols="12"
+          md="8"
+        >
+          <v-text-field
+            label="Nome"
+            density="compact"
+            hide-details="auto"
+            v-model="autoDriverSearch.params.name"
+            append-inner-icon="material-symbols:search"
+            @click:appendInner="autoDriverSearch.submit()"
+            @keyup.enter="autoDriverSearch.submit()"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+          align="end"
+        >
+          <v-btn
+            text="Criar"
+            color="primary"
+            @click="autoDriverDialog.setData({}).show()"
+          />
+        </v-col>
+      </v-row>
       <br />
 
       <v-table class="border">
@@ -121,6 +141,7 @@ const autoDriverSearch = useRequest({
   params: {
     page: 1,
     per_page: 10,
+    name: "",
   },
   response: { rows: [] },
 });

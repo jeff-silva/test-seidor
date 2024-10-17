@@ -1,24 +1,29 @@
 <template>
   <div>
-    <div
-      class="d-flex ga-3"
-      @click="select.dialog = true"
-    >
-      <div class="flex-grow-1">
+    <v-row @click="select.dialog = true">
+      <v-col
+        cols="12"
+        md="6"
+      >
         <v-text-field
           label="Data inicial"
           :model-value="propsDateStart"
+          :hide-details="true"
           :readonly="true"
         />
-      </div>
-      <div class="flex-grow-1">
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
         <v-text-field
           label="Data final"
           :model-value="propsDateFinal"
+          :hide-details="true"
           :readonly="true"
         />
-      </div>
-    </div>
+      </v-col>
+    </v-row>
 
     <v-dialog
       v-model="select.dialog"

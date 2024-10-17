@@ -118,6 +118,7 @@
                 v-model:dateStart="autoCarDialog.data.date_start"
                 v-model:dateFinal="autoCarDialog.data.date_final"
               />
+              <br />
 
               <v-textarea
                 label="observation"

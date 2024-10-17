@@ -33,8 +33,9 @@ AutoCar.init(
       allowNull: true,
       get() {
         const brand = this.getDataValue("brand") || "";
+        const color = this.getDataValue("color") || "";
         const plate = this.getDataValue("plate") || "";
-        return `${brand} - ${plate}`;
+        return `${brand} ${color} [ ${plate.toUpperCase()} ]`;
       },
     },
     plate: {
