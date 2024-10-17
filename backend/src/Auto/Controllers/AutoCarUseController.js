@@ -12,10 +12,8 @@ export default class AutoCarUseController extends Controller {
     app.crud("/api/v1/auto_car_use", this);
   }
 
-  searchInclude() {
-    // return [{ model: AutoCar }];
-    return [AutoDriver, AutoCar];
-    // return "AutoCar";
-    // return [];
+  onSearch(query, res, req) {
+    query.include = [AutoDriver, AutoCar];
+    return query;
   }
 }

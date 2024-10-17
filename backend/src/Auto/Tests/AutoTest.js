@@ -60,8 +60,8 @@ export default class AutoTest extends Test {
           data: {
             driver_id: this.autoDriver.data.entity.id,
             car_id: this.autoCar.data.entity.id,
-            use_start: "2024-01-01 00:00:00",
-            use_final: "2024-01-15 00:00:00",
+            date_start: "2024-01-01 00:00:00",
+            date_final: "2024-01-15 00:00:00",
           },
         });
 
@@ -75,8 +75,8 @@ export default class AutoTest extends Test {
           data: {
             driver_id: this.autoDriver.data.entity.id,
             car_id: this.autoCar.data.entity.id,
-            use_start: "2024-01-03 00:00:00",
-            use_final: "2024-01-10 00:00:00",
+            date_start: "2024-01-03 00:00:00",
+            date_final: "2024-01-10 00:00:00",
           },
         });
 

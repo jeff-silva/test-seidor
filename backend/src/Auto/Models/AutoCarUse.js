@@ -15,8 +15,8 @@ class AutoCarUse extends Model {
       defaults: {
         driver_id: 1,
         car_id: 1,
-        use_start: "2024-01-01 00:00:00",
-        use_final: "2024-01-15 00:00:00",
+        date_start: "2024-01-01 00:00:00",
+        date_final: "2024-01-15 00:00:00",
       },
     });
     await AutoCarUse.findOrCreate({
@@ -24,8 +24,8 @@ class AutoCarUse extends Model {
       defaults: {
         driver_id: 2,
         car_id: 2,
-        use_start: "2024-01-01 00:00:00",
-        use_final: "2024-01-15 00:00:00",
+        date_start: "2024-01-01 00:00:00",
+        date_final: "2024-01-15 00:00:00",
       },
     });
   }
@@ -45,8 +45,8 @@ AutoCarUse.init(
         async custom(value) {
           if (!value) throw new Error("Campo obrigatório");
 
-          const use_start = dayjs(this.use_start).format("YYYY-MM-DD");
-          const use_final = dayjs(this.use_final).format("YYYY-MM-DD");
+          const date_start = dayjs(this.date_start).format("YYYY-MM-DD");
+          const date_final = dayjs(this.date_final).format("YYYY-MM-DD");
 
           const exists = await AutoCarUse.findAll({
             where: {
@@ -54,10 +54,10 @@ AutoCarUse.init(
               driver_id: this.driver_id,
               [Sequelizee.Op.or]: [
                 sequelize.literal(
-                  `'${use_start}' BETWEEN auto_car_use.use_start AND auto_car_use.use_final`
+                  `'${date_start}' BETWEEN auto_car_use.date_start AND auto_car_use.date_final`
                 ),
                 sequelize.literal(
-                  `'${use_final}' BETWEEN auto_car_use.use_start AND auto_car_use.use_final`
+                  `'${date_final}' BETWEEN auto_car_use.date_start AND auto_car_use.date_final`
                 ),
               ],
             },
@@ -76,8 +76,8 @@ AutoCarUse.init(
         async custom(value) {
           if (!value) throw new Error("Campo obrigatório");
 
-          const use_start = dayjs(this.use_start).format("YYYY-MM-DD");
-          const use_final = dayjs(this.use_final).format("YYYY-MM-DD");
+          const date_start = dayjs(this.date_start).format("YYYY-MM-DD");
+          const date_final = dayjs(this.date_final).format("YYYY-MM-DD");
 
           const exists = await AutoCarUse.findAll({
             where: {
@@ -85,10 +85,10 @@ AutoCarUse.init(
               car_id: this.car_id,
               [Sequelizee.Op.or]: [
                 sequelize.literal(
-                  `'${use_start}' BETWEEN auto_car_use.use_start AND auto_car_use.use_final`
+                  `'${date_start}' BETWEEN auto_car_use.date_start AND auto_car_use.date_final`
                 ),
                 sequelize.literal(
-                  `'${use_final}' BETWEEN auto_car_use.use_start AND auto_car_use.use_final`
+                  `'${date_final}' BETWEEN auto_car_use.date_start AND auto_car_use.date_final`
                 ),
               ],
             },
@@ -100,7 +100,7 @@ AutoCarUse.init(
         },
       },
     },
-    use_start: {
+    date_start: {
       type: SequelizeDataTypes.DATE,
       allowNull: true,
       validate: {
@@ -109,7 +109,7 @@ AutoCarUse.init(
         },
       },
     },
-    use_final: {
+    date_final: {
       type: SequelizeDataTypes.DATE,
       allowNull: true,
       validate: {

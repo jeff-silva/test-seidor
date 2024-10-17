@@ -31,7 +31,7 @@
             <tr>
               <td>#{{ o.id }} - {{ o.auto_driver?.name || null }}</td>
               <td>{{ o.auto_car?.name || null }}</td>
-              <td>{{ f.date(o.use_start) }} ~ {{ f.date(o.use_final) }}</td>
+              <td>{{ f.date(o.date_start) }} ~ {{ f.date(o.date_final) }}</td>
               <td>
                 <v-table-actions>
                   <v-btn
@@ -115,8 +115,8 @@
               />
 
               <v-date-picker-range
-                v-model:dateStart="autoCarDialog.data.use_start"
-                v-model:dateFinal="autoCarDialog.data.use_final"
+                v-model:dateStart="autoCarDialog.data.date_start"
+                v-model:dateFinal="autoCarDialog.data.date_final"
               />
 
               <v-textarea

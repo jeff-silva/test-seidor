@@ -261,7 +261,9 @@ export class Model extends Sequelize.Model {
 }
 
 export class Controller {
-  constructor() {}
+  constructor() {
+    this.Sequelize = Sequelize;
+  }
 
   model() {
     return null;
@@ -295,30 +297,21 @@ export class Controller {
     this.success(req, res, { entity });
   }
 
-  searchInclude() {
-    return [];
-  }
-
   async search(req, res) {
     const page = parseInt(req.query.page || 1);
     const per_page = parseInt(req.query.per_page || 10);
     const model = this.model();
 
-    const data = await model.findAndCountAll({
-      include: this.searchInclude(),
+    let query = {
       offset: (page - 1) * per_page,
       limit: per_page,
-    });
+      where: {},
+    };
+
+    query = await this.onSearch(query, req, res);
+    const data = await model.findAndCountAll(query);
     const pages = Math.ceil(data.count / per_page);
     this.success(req, res, { page, per_page, pages, ...data });
-
-    // this.success(
-    //   req,
-    //   res,
-    //   await model.findAll({
-    //     include: this.searchInclude(),
-    //   })
-    // );
   }
 
   async create(req, res) {
@@ -355,6 +348,10 @@ export class Controller {
       return;
     }
     this.success(req, res, {});
+  }
+
+  async onSearch(req, res) {
+    return {};
   }
 }
 
